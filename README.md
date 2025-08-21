@@ -91,10 +91,10 @@ Here are some of the projects I'm proud of. You can find more on my repositories
 <h3>Language Recognition and Translation Project</h3>
 <p>This project is designed to recognize the language being spoken and translate it into another language of choice. The system uses speech recognition to identify the spoken language, converts the spoken words into text, and then translates the recognized text into a target language. This project provides a seamless way to communicate across different languages using speech.</p>
 <p>
-<strong>Tech Stack:</strong> Python, SpeechRecognition, Langdetect.
+<strong>Tech Stack:</strong> Python, SpeechRecognition, Langdetect, HTML, TailwindCSS.
 </p>
 <p>
-<a href="https://github.com/shashwatkul/Language-detection-and-translator-" target="_blank">View on GitHub</a> |
+<a href="https://github.com/shashwatkul/speech-translator" target="_blank">View on GitHub</a> |
 <a href="https://www.google.com/search?q=https://project-live-demo-3.com" target="_blank">Live Demo</a>
 </p>
 </td>
