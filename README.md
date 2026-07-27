@@ -33,15 +33,15 @@ Hi there, I'm Shashwat Kulshrestha👋
 </p>
 
 🚀 About Me: 
-I'm a passionate Software Engineer from New Delhi, with a love for creating elegant and efficient solutions. I thrive on turning complex problems into simple, beautiful, and intuitive designs.
+I'm a Software Engineer based in New Delhi, currently building full-stack products end-to-end — from architecture and backend systems to cloud deployment. I enjoy owning problems fully, from idea to production.
 
-🔭 I’m currently working on a cool project involving Next.js and Machine Learning.
+🔭 I'm currently building full-stack, AWS-deployed products — including a cloud-hosted platform (EC2, SES, SQS, SNS) and multi-tenant SaaS architecture.
 
-🌱 I’m currently learning Advanced Docker and Kubernetes.
+🌱 I'm currently deepening my skills in AWS (EC2, S3, CloudFront, SES/SQS/SNS), CI/CD pipelines, and applying AI/LLMs to real-world product features.
 
-👯 I’m looking to collaborate on open-source projects that make a social impact.
+👯 I'm looking to collaborate on open-source projects, particularly around developer tooling, AI-assisted apps, or cloud infrastructure.
 
-💬 Ask me about React, Python, or anything related to web performance.
+💬 Ask me about Node.js, React, system architecture, AWS, or applying AI in production apps.
 
 📫 How to reach me: shashwat.kul@gmail.com
 
@@ -52,7 +52,7 @@ This is a list of technologies I'm proficient in. I'm always eager to learn more
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=py,java,c,fastapi,html,css,tailwind,js,react,nodejs,mysql,postgres,docker,git,github,netlify,bash,discord,vscode,figma&theme=light" />
+    <img src="https://skillicons.dev/icons?i=py,java,c,fastapi,html,css,tailwind,js,react,nodejs,express,mysql,postgres,aws,docker,git,github,netlify,bash,discord,vscode,figma&theme=light" />
   </a>
 </p>
 
