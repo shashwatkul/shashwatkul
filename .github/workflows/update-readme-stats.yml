@@ -1,47 +1,60 @@
-name: Update GitHub Stats SVGs
-
-# Generates the stats/top-langs cards as static SVG files and commits them
-# to the repo, so the profile README no longer depends on the public
-# vercel.app instance staying up at page-load time. If the source service
-# happens to be down when this job runs, the last successfully generated
-# SVG just stays in place instead of showing a broken image.
+name: Update GitHub Stats
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # once a day at 03:00 UTC — adjust as you like
-  workflow_dispatch:        # lets you trigger it manually from the Actions tab
+    - cron: "0 0 * * *"   # daily
+  workflow_dispatch:        # manual "Run workflow" button
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/github-stats.yml"
 
 permissions:
-  contents: write
+  contents: write           # needed to commit the SVGs
 
 jobs:
   update-stats:
     runs-on: ubuntu-latest
+    env:
+      USERNAME: shashwatkul
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create output folder
+      - name: Prepare output folder
         run: mkdir -p github-stats
 
-      - name: Fetch main stats card
+      - name: Fetch cards
         run: |
-          curl -sf "https://github-readme-stats.vercel.app/api?username=shashwatkul&show_icons=true&theme=dracula&hide_border=true&count_private=true" \
-            -o github-stats/overview.svg || echo "Stats card fetch failed, keeping previous version"
+          fetch() {
+            url="$1"; out="$2"
+            if curl -fsSL --retry 3 --retry-delay 5 "$url" -o "$out.tmp" \
+               && grep -q "<svg" "$out.tmp"; then
+              mv "$out.tmp" "$out"
+              echo "Updated $out"
+            else
+              rm -f "$out.tmp"
+              echo "::warning::Could not update $out, keeping previous version"
+            fi
+          }
 
-      - name: Fetch top languages card
-        run: |
-          curl -sf "https://github-readme-stats.vercel.app/api/top-langs/?username=shashwatkul&layout=compact&theme=dracula&hide_border=true" \
-            -o github-stats/languages.svg || echo "Languages card fetch failed, keeping previous version"
+          fetch "https://github-readme-stats.vercel.app/api?username=${USERNAME}&show_icons=true&theme=dracula&hide_border=true&count_private=true&include_all_commits=true" \
+                github-stats/overview.svg
 
-      - name: Fetch trophies card
-        run: |
-          curl -sf "https://github-profile-trophy.vercel.app/?username=shashwatkul&theme=dracula&no-frame=true&row=1&column=6" \
-            -o github-stats/trophies.svg || echo "Trophies card fetch failed, keeping previous version"
+          fetch "https://github-readme-stats.vercel.app/api/top-langs/?username=${USERNAME}&layout=compact&theme=dracula&hide_border=true&langs_count=8" \
+                github-stats/languages.svg
 
-      - name: Commit and push if changed
+          fetch "https://github-profile-trophy.vercel.app/?username=${USERNAME}&theme=darkhub&no-frame=true&no-bg=true&row=1&column=7" \
+                github-stats/trophies.svg
+
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add github-stats/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: refresh GitHub stats SVGs" && git push)
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update GitHub stats cards"
+            git push
+          fi
